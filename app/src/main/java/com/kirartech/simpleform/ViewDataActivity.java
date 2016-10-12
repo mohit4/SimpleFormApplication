@@ -1,17 +1,22 @@
 package com.kirartech.simpleform;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 public class ViewDataActivity extends ActionBarActivity {
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_data);
+
+        listView = (ListView)findViewById(R.id.listView);
     }
 
 

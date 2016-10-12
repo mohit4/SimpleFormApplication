@@ -1,10 +1,13 @@
 package com.kirartech.simpleform;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class FillFormActivity extends ActionBarActivity {
 
@@ -12,6 +15,35 @@ public class FillFormActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fill_form);
+
+        final DBHelper DBObj = new DBHelper(this.getApplicationContext());
+
+        final EditText name = (EditText)findViewById(R.id.enterName);
+        final EditText email = (EditText)findViewById(R.id.enterEmail);
+        final EditText phone = (EditText)findViewById(R.id.enterPhone);
+        final EditText dob = (EditText)findViewById(R.id.enterDOB);
+
+        Button SubmitButton = (Button)findViewById(R.id.submitButton);
+        Button ResetButton = (Button)findViewById(R.id.resetButton);
+
+        SubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBObj.insertValues(name.getText().toString(), email.getText().toString(), phone.getText().toString(), dob.getText().toString());
+                Toast.makeText(getApplicationContext(),"Data Submitted Successfully",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ResetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name.setText("");
+                email.setText("");
+                phone.setText("");
+                dob.setText("");
+                Toast.makeText(getApplicationContext(),"Data Cleared",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
