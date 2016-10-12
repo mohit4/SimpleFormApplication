@@ -1,15 +1,22 @@
 package com.kirartech.simpleform;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class ViewDataActivity extends ActionBarActivity {
 
     ListView listView;
+    DBHelper DBObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +24,32 @@ public class ViewDataActivity extends ActionBarActivity {
         setContentView(R.layout.activity_view_data);
 
         listView = (ListView)findViewById(R.id.listView);
+        DBObj = new DBHelper(this.getApplicationContext());
+        ArrayList<String> myList = DBObj.getAllNames();
+
+        //setting up the adapter
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,myList);
+        listView.setAdapter(arrayAdapter);
+
+        //setting onItemClickListener
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String nameValue = (String)listView.getItemAtPosition(position);
+                sendDataToViewRecord(nameValue);
+            }
+        });
     }
 
+    public void sendDataToViewRecord(String nameValue){
+        Intent i = new Intent(this, viewRecord.class);
+        i.putExtra("name",nameValue);
+        ArrayList<String> allData = DBObj.getAllData(nameValue);
+        i.putExtra("dob",allData.get(0).toString());
+        i.putExtra("email",allData.get(1).toString());
+        i.putExtra("phone",allData.get(2).toString());
+        startActivity(i);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

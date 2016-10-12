@@ -44,6 +44,20 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public ArrayList<String> getAllData(String name){
+        ArrayList<String> arrayList = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from "+Table_Name+" where name=\'"+name+"\';",null);
+        res.moveToFirst();
+        while(res.isAfterLast()==false){
+            arrayList.add(res.getString(res.getColumnIndex("dob")));
+            arrayList.add(res.getString(res.getColumnIndex("email")));
+            arrayList.add(res.getString(res.getColumnIndex("phone")));
+            res.moveToNext();
+        }
+        return arrayList;
+    }
+
     public ArrayList<String> getAllNames(){
         ArrayList<String> arrayList = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();

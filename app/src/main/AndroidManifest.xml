@@ -24,6 +24,10 @@
             android:name=".ViewDataActivity"
             android:label="@string/title_activity_view_data" >
         </activity>
+        <activity
+            android:name=".viewRecord"
+            android:label="@string/title_activity_view_record" >
+        </activity>
     </application>
 
 </manifest>

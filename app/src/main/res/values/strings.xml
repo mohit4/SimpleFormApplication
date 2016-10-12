@@ -5,4 +5,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_view_data">ViewDataActivity</string>
+    <string name="title_activity_view_record">viewRecord</string>
 </resources>
